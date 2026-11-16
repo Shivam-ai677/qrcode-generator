@@ -1,0 +1,130 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>QR Code Generator</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f0f2f5;
+            text-align: center;
+            padding: 50px;
+        }
+
+        .container {
+            background: white;
+            width: 400px;
+            margin: auto;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            color: #222;
+        }
+
+        input {
+            width: 90%;
+            padding: 12px;
+            margin: 20px 0;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 15px;
+        }
+
+        button {
+            background: #2563eb;
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background: #1d4ed8;
+        }
+
+        .qr-image {
+            margin-top: 25px;
+        }
+
+        .qr-image img {
+            width: 200px;
+            height: 200px;
+        }
+
+        .download {
+            display: inline-block;
+            margin-top: 15px;
+            background: #16a34a;
+            color: white;
+            padding: 12px 20px;
+            text-decoration: none;
+            border-radius: 6px;
+        }
+
+        .error {
+            color: red;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>QR Code Generator</h1>
+
+        <p>Enter your URL to generate QR Code</p>
+
+        <form action="/generate" method="POST">
+
+            <input
+                type="url"
+                name="url"
+                placeholder="Enter your website URL"
+                required
+            >
+
+            <br>
+
+            <button type="submit">
+                Generate QR Code
+            </button>
+
+        </form>
+
+        {% if error %}
+            <p class="error">{{ error }}</p>
+        {% endif %}
+
+        {% if qr_generated %}
+
+            <div class="qr-image">
+
+                <h3>Your QR Code</h3>
+
+                <img
+                    src="{{ url_for('static', path='qrcodes/qrcode.png') }}?v={{ qr_version }}"
+                    alt="Generated QR Code"
+                >
+
+                <br>
+
+                <a href="/download" class="download">
+                    Download QR Code
+                </a>
+
+            </div>
+
+        {% endif %}
+
+    </div>
+
+</body>
+</html>
