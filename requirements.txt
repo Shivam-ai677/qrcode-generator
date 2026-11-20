@@ -1,5 +1,4 @@
 fastapi
 uvicorn
-qrcode
-pillow
+qrcode[pil]
 python-multipart
